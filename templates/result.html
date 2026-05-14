@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prediction Result</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #e8f5e9;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        footer{
+          margin-top: 10px;
+          color: gray;
+          font-size: 14px;
+        }
+
+        .container{
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h1{
+            color: green;
+        }
+
+        h2{
+            margin-bottom: 25px;
+        }
+
+        h3{
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .label{
+              color: #5D4037;
+              font-weight: bold;
+        }
+
+        .value{
+                color: #1565C0;
+                font-weight: bold;
+        }
+
+        .download-btn{
+            display: inline-block;
+            margin-top: 3px;
+            margin-bottom: 30px;
+            padding: 12px 25px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .download-btn:hover{
+            background-color: darkgreen;
+        }
+
+        a{
+            text-decoration: none;
+            background-color: green;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        a:hover{
+            background-color: darkgreen;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Predicted Result</h1>
+
+        <h2>
+            🌾<span class="label">Recommended Crop:</span>
+              <span class="value">{{ prediction }}</span>
+            
+        </h2>
+        <h3>Live Weather Data</h3>
+        <p><b>Temperature:</b> {{ api_temperature }} °C</p>
+        <p><b>Humidity:</b> {{ api_humidity }} %</p>
+        
+        <br><br>
+        
+
+        <img src="{{ url_for('static', filename='images/' + crop_image) }}"
+              width="250"
+              height="150"
+              style="border-radius:10px;">
+<br><br>
+        <h3>
+            🌱 <span class="label">Bio Fertilizer:</span>
+             <span class="value">{{ bio_fertilizer }}</span>
+        </h3>
+
+        <h3>
+              🛡 <span class="label">Bio Predator:</span>
+              <span class="value">{{ bio_predator }}</span>
+        </h3>
+
+        <h3>
+                🔄 <span class="label">Crop Rotation:</span>
+                <span class="value">{{ crop_rotation }}</span>
+        </h3>
+
+        <h3>
+             💡 <span class="label">Sustainability Tip:</span>
+             <span class="value">{{ sustainability_tip }}</span>
+        </h3>
+
+        <h3>
+           📊 <span class="label">Sustainability Score:</span>
+           <span class="score">{{ sustainability_score }}</span>
+           <span class="value">{{ sustainability_level }}</span>
+        </h3>
+
+        
+        <br><br>
+
+        <a href="/">Go Back</a>
+        <a href="/download_report" class="download-btn">
+             Download Report
+        </a>
+
+    </div>
+    <footer>
+        <p>Developed by Sati Sindhu | MCA Project 2026</p>
+    </footer>
+    
+
+</body>
+</html>
+    

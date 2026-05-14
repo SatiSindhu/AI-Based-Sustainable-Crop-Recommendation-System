@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Prediction History</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #e8f5e9;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1{
+            color: green;
+        }
+
+        table{
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td{
+            border: 1px solid gray;
+            padding: 12px;
+        }
+
+        th{
+            background-color: green;
+            color: white;
+        }
+
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+
+        a{
+            text-decoration: none;
+            color: blue;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Prediction History</h1>
+
+    <table>
+
+        <tr>
+            <th>Username</th>
+            <th>Predicted Crop</th>
+            <th>Date & Time</th>
+        </tr>
+
+        {% for row in history %}
+
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br><br>
+
+    <a href="/">Back to Home</a>
+
+</body>
+
+</html>
