@@ -39,6 +39,20 @@
             color: green;
         }
 
+        .language-box{
+            display: inline-block;
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .language-box select{
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-left: 5px;
+        }
+
         .logout-btn{
             text-decoration: none;
             background-color: red;
@@ -127,6 +141,14 @@
        <a href="#about">About</a>
        <a href="/history">History</a>
        <a href="/logout">Logout</a>
+       <div class="language-box">
+          <label for="language-selector">Language</label>
+          <select id="language-selector">
+            <option value="en">English</option>
+            <option value="te">Telugu</option>
+            <option value="hi">Hindi</option>
+          </select>
+        </div>
     </div>
 
     <div class="top-bar">
@@ -141,12 +163,12 @@
 
     <div class="container">
 
-        <h1>AI-Based Sustainable Crop Recommendation System</h1>
+        <h1 id="main-heading">AI-Based Sustainable Crop Recommendation System</h1>
         <h3 class="accuracy">Model Accuracy : 87.5%</h3>
         
       <form action="/predict" method="post">
 
-         <label>Nitrogen</label><br>
+         <label id="label-n">Nitrogen</label><br>
          <input type="number"
            name="N"
            min="0"
@@ -155,7 +177,7 @@
            title="Please enter only numeric values"
            required><br>
 
-        <label>Phosphorus</label><br>
+        <label id="label-p">Phosphorus</label><br>
         <input type="number"
            name="P"
            min="0"
@@ -164,7 +186,7 @@
            title="Please enter only numeric values"
            required><br>
 
-        <label>Potassium</label><br>
+        <label id="label-k">Potassium</label><br>
         <input type="number"
            name="K"
            min="0"
@@ -173,13 +195,13 @@
            title="Please enter only numeric values"
            required><br>
 
-           <label>Enter City:</label>
-           <input type="text"
+        <label id="label-city">Enter City:</label>
+        <input type="text"
               name="city"
               placeholder="Enter City Name"
               required>
 
-        <label>Temperature</label><br>
+        <label id="label-temp">Temperature</label><br>
         <input type="number"
            step="any"
            name="temperature"
@@ -189,7 +211,7 @@
            title="Please enter only numeric values"
            required><br>
 
-        <label>Humidity</label><br>
+        <label id="label-humidity">Humidity</label><br>
         <input type="number"
            step="any"
            name="humidity"
@@ -199,7 +221,7 @@
            title="Please enter only numeric values"
            required><br>
 
-        <label>pH Value</label><br>
+        <label id="label-ph">pH Value</label><br>
         <input type="number"
            step="any"
            name="ph"
@@ -209,7 +231,7 @@
            title="Please enter only numeric values"
            required><br>
 
-        <label>Rainfall</label><br>
+        <label id="label-rainfall">Rainfall</label><br>
         <input type="number"
            step="any"
            name="rainfall"
@@ -219,7 +241,7 @@
            title="Please enter only numeric values"
            required><br><br>
 
-        <button type="submit">Predict Crop</button>
+        <button type="submit" id="predict-btn">Predict Crop</button>
 
       </form>   
         
@@ -245,7 +267,74 @@
         <p>Developed by Sati Sindhu | MCA Project 2026</p>
     </footer>
     
+    <script>
+    const translations = {
+      en: {
+        heading: "AI-Based Sustainable Crop Recommendation System",
+        predict: "Predict Crop",
+        n: "Nitrogen (N)",
+        p: "Phosphorus (P)",
+        k: "Potassium (K)",
+        temp: "Temperature",
+        humidity: "Humidity",
+        ph: "pH",
+        rainfall: "Rainfall",
+        city: "City"
+      },
 
+      te: {
+        heading: "ఏఐ ఆధారిత సుస్థిర పంట సిఫార్సు వ్యవస్థ",
+        predict: "పంట అంచనా",
+        n: "నత్రజని (N)",
+        p: "ఫాస్ఫరస్ (P)",
+        k: "పొటాషియం (K)",
+        temp: "ఉష్ణోగ్రత",
+        humidity: "ఆర్ద్రత",
+        ph: "పీహెచ్",
+        rainfall: "వర్షపాతం",
+        city: "నగరం"
+      },
+
+      hi: {
+        heading: "एआई आधारित सतत फसल अनुशंसा प्रणाली",
+        predict: "फसल भविष्यवाणी",
+        n: "नाइट्रोजन (N)",
+        p: "फॉस्फोरस (P)",
+        k: "पोटैशियम (K)",
+        temp: "तापमान", 
+        humidity: "नमी",
+        ph: "पीएच",
+        rainfall: "वर्षा",
+        city: "शहर"
+      }
+    };
+
+    document.getElementById("language-selector").addEventListener("change", function () {
+
+        const lang = this.value;
+        localStorage.setItem("selectedLanguage", lang);
+        document.getElementById("main-heading").innerText =
+        translations[lang].heading;
+        document.getElementById("predict-btn").innerText =
+        translations[lang].predict;
+        document.getElementById("label-n").innerText =
+        translations[lang].n;
+        document.getElementById("label-p").innerText =
+        translations[lang].p;
+        document.getElementById("label-k").innerText =
+        translations[lang].k;
+        document.getElementById("label-temp").innerText =
+        translations[lang].temp;
+        document.getElementById("label-humidity").innerText =
+        translations[lang].humidity;
+        document.getElementById("label-ph").innerText =
+        translations[lang].ph;
+        document.getElementById("label-rainfall").innerText =
+        translations[lang].rainfall;
+        document.getElementById("label-city").innerText =
+        translations[lang].city;
+    });
+    </script>
 </body>
 </html>
 

@@ -87,16 +87,16 @@
 
     <div class="container">
 
-        <h1>Predicted Result</h1>
+        <h1 id="result-heading">Predicted Result</h1>
 
         <h2>
-            🌾<span class="label">Recommended Crop:</span>
-              <span class="value">{{ prediction }}</span>
+            🌾<span class="label" id="crop-label">Recommended Crop:</span>
+               <span class="value" id="prediction-value">{{ prediction }}</span>
             
         </h2>
-        <h3>Live Weather Data</h3>
-        <p><b>Temperature:</b> {{ api_temperature }} °C</p>
-        <p><b>Humidity:</b> {{ api_humidity }} %</p>
+        <h3 id="weather-heading">Live Weather Data</h3>
+        <p><b id="temp-label">Temperature:</b> {{ api_temperature }} °C</p>
+        <p><b id="humidity-label">Humidity:</b> {{ api_humidity }} %</p>
         
         <br><br>
         
@@ -107,36 +107,46 @@
               style="border-radius:10px;">
 <br><br>
         <h3>
-            🌱 <span class="label">Bio Fertilizer:</span>
-             <span class="value">{{ bio_fertilizer }}</span>
+            🌱 <span class="label" id="bio-label">Bio Fertilizer:</span>
+             <span class="value" id="fertilizer-value">{{ bio_fertilizer }}</span>
         </h3>
 
         <h3>
-              🛡 <span class="label">Bio Predator:</span>
-              <span class="value">{{ bio_predator }}</span>
+              🛡 <span class="label" id="predator-label">Bio Predator:</span>
+              <span class="value" id="predator-value">{{ bio_predator }}</span>
         </h3>
 
         <h3>
-                🔄 <span class="label">Crop Rotation:</span>
-                <span class="value">{{ crop_rotation }}</span>
+                🔄 <span class="label" id="rotation-label">Crop Rotation:</span>
+                <span class="value" id="rotation-value">{{ crop_rotation }}</span>
         </h3>
 
         <h3>
-             💡 <span class="label">Sustainability Tip:</span>
-             <span class="value">{{ sustainability_tip }}</span>
+             💡 <span class="label" id="tip-label" >Sustainability Tip:</span>
+             <span class="value" id="tip-value">{{ sustainability_tip }}</span>
         </h3>
 
         <h3>
-           📊 <span class="label">Sustainability Score:</span>
-           <span class="score">{{ sustainability_score }}</span>
-           <span class="value">{{ sustainability_level }}</span>
+           📊 <span class="label" id="score-label">Sustainability Score:</span>
+              <span class="value">{{ sustainability_score }}%</span>
+              {% if sustainability_score >= 80 %}
+                <span style="color:green; font-size:22px;">●</span>
+                <span id="status-text">Excellent</span>
+              {% elif sustainability_score >= 50 %}
+                <span style="color:gold; font-size:22px;">●</span>
+                <span id="status-text">Moderate</span>
+              {% else %}
+                <span style="color:red; font-size:22px;">●</span>
+                <span id="status-text">Poor</span>
+
+            {% endif %}
         </h3>
 
         
         <br><br>
 
-        <a href="/">Go Back</a>
-        <a href="/download_report" class="download-btn">
+        <a href="/" id="goback-btn">Go Back</a>
+        <a href="/download_report" class="download-btn" id="download-btn">
              Download Report
         </a>
 
@@ -145,7 +155,86 @@
         <p>Developed by Sati Sindhu | MCA Project 2026</p>
     </footer>
     
+    <script>
+    
+        window.onload = function () {
+            const resultTranslations = {
+                en: {
+                    weather: "Live Weather Data",
+                    temperature: "Temperature:",
+                    humidity: "Humidity:",
+                    download: "Download Report",
+                    goback: "Go Back",
+                    crop: "Recommended Crop:",
+                    bio: "Bio Fertilizer:",
+                    predator: "Bio Predator:",
+                    rotation: "Crop Rotation:",
+                    tip: "Sustainability Tip:",
+                    score: "Sustainability Score:",
+                    resultHeading: "Prediction Result"
+                },
 
+                te: {
+                    weather: "ప్రత్యక్ష వాతావరణ సమాచారం",
+                    temperature: "ఉష్ణోగ్రత:",
+                    humidity: "ఆర్ద్రత:",
+                    download: "రిపోర్ట్ డౌన్‌లోడ్",
+                    goback: "వెనక్కి వెళ్ళు",
+                    crop: "సిఫార్సు చేసిన పంట:",
+                    bio: "జీవ ఎరువు:",
+                    predator: "జీవ రక్షకుడు:",
+                    rotation: "పంట మార్పిడి:",
+                    tip: "స్థిరమైన వ్యవసాయ సూచన:",
+                    score: "స్థిరత్వ స్కోర్:",
+                    resultHeading: "అంచనా ఫలితం"
+                },
+
+                hi: {
+                    weather: "लाइव मौसम डेटा",
+                    temperature: "तापमान:",
+                    humidity: "नमी:",
+                    download: "रिपोर्ट डाउनलोड करें",
+                    goback: "वापस जाएँ",
+                    crop: "अनुशंसित फसल:",
+                    bio: "जैव उर्वरक:",
+                    predator: "जैव शिकारी:",
+                    rotation: "फसल चक्र:",
+                    tip: "सतत कृषि सुझाव:",
+                    score: "स्थिरता स्कोर:",
+                    resultHeading: "पूर्वानुमान परिणाम"
+                }
+            };
+
+            const savedLanguage =
+        localStorage.getItem("selectedLanguage") || "en";
+        document.getElementById("result-heading").innerText =
+        resultTranslations[savedLanguage].resultHeading;
+        document.getElementById("weather-heading").innerText =
+        resultTranslations[savedLanguage].weather;
+        document.getElementById("temp-label").innerText =
+        resultTranslations[savedLanguage].temperature;
+        document.getElementById("humidity-label").innerText =
+        resultTranslations[savedLanguage].humidity;
+        document.getElementById("crop-label").innerText =
+        resultTranslations[savedLanguage].crop;
+        document.getElementById("bio-label").innerText =
+        resultTranslations[savedLanguage].bio;
+        document.getElementById("predator-label").innerText =
+        resultTranslations[savedLanguage].predator;
+        document.getElementById("rotation-label").innerText =
+        resultTranslations[savedLanguage].rotation;
+        document.getElementById("tip-label").innerText =
+        resultTranslations[savedLanguage].tip;
+        document.getElementById("score-label").innerText =
+        resultTranslations[savedLanguage].score;
+        document.getElementById("download-btn").innerText =
+        resultTranslations[savedLanguage].download;
+        document.getElementById("goback-btn").innerText =
+        resultTranslations[savedLanguage].goback;
+    };   
+    
+    </script>
+        
 </body>
 </html>
     

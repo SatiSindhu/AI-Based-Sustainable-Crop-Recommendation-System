@@ -29,16 +29,29 @@ def home():
 def predict():
     print("Prediction route working")
     city = request.form['city']
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-    response = requests.get(url)
-    weather_data = response.json()
-    api_temperature = weather_data['main']['temp']
-    api_humidity = weather_data['main']['humidity']
-    temperature = weather_data['main']['temp']
-    humidity = weather_data['main']['humidity']
+    api_temperature = "Not Available"
+    api_humidity = "Not Available"
+    try:
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+        response = requests.get(url)
+        weather_data = response.json()
+        if 'main' in weather_data:
+            api_temperature = weather_data['main']['temp']
+            api_humidity = weather_data['main']['humidity']
+        else:
+            api_temperature = "Not Available"
+            api_humidity = "Not Available"
+    except:
+        pass
 
-    print("Temperature:", temperature)
-    print("Humidity:", humidity)
+    if api_temperature == "Not Available":
+            temperature = 25
+    else:
+            temperature = float(api_temperature)
+    if api_humidity == "Not Available":
+        humidity = 50
+    else:
+        humidity =float(api_humidity)
 
     # Get values from form
     N = float(request.form['N'])
@@ -77,20 +90,20 @@ def predict():
     crop_image = ""
 
     if crop == "rice":
-       bio_fertilizer = "Blue Green Algae"
-       bio_predator = "Neem Oil Spray"
-       crop_rotation = "Pulses"
-       sustainability_tip = "Use water conservation techniques"
-       sustainability_score= "87%"
-       sustainability_level = "🟢 Excellent"
-       crop_image = "rice.jpg"
+        bio_fertilizer = "Blue Green Algae"
+        bio_predator = "Neem Oil Spray"
+        crop_rotation = "Pulses"
+        sustainability_tip = "Use water conservation techniques"
+        sustainability_score = "87"
+        sustainability_level = "🟢 Excellent"
+        crop_image = "rice.jpg"
 
     elif crop == "maize":
        bio_fertilizer = "Azotobacter"
        bio_predator = "Trichogramma"
        crop_rotation = "Groundnut"
        sustainability_tip = "Practice crop rotation regularly"
-       sustainability_score= "82%" 
+       sustainability_score= "82" 
        sustainability_level = "🟡 Moderate"
        crop_image = "maize.jpg"
 
@@ -99,7 +112,7 @@ def predict():
         bio_predator = "Neem Oil Spray"
         crop_rotation = "Legumes"
         sustainability_tip = "Use balanced nitrogen fertilization"
-        sustainability_score = "82%"
+        sustainability_score = "82"
         sustainability_level = "🟢 Excellent"
         crop_image = "wheat.jpg"
 
@@ -108,7 +121,7 @@ def predict():
         bio_predator = "Trichogramma"
         crop_rotation = "Groundnut"
         sustainability_tip = "Use drip irrigation to conserve water"
-        sustainability_score = "78%"
+        sustainability_score = "78"
         sustainability_level = "🟡 Moderate"
         crop_image = "cotton.jpg"
 
@@ -117,7 +130,7 @@ def predict():
         biopredator = "Neem Cake"
         crop_rotation = "Pulses"
         sustainability_tip = "Maintain proper soil moisture"
-        sustainability_score = "84%"
+        sustainability_score = "84"
         sustainability_level = "🟢 Excellent"
         crop_image = "sugarcane.jpg"
 
@@ -126,7 +139,7 @@ def predict():
         bio_predator = "Neem Extract"
         crop_rotation = "Pulses"
         sustainability_tip = "Millets require less water and improve sustainability"
-        sustainability_score = "90%"
+        sustainability_score = "90"
         sustainability_level = "🟢 Excellent"
         crop_image = "millet.jpg"
 
@@ -135,7 +148,7 @@ def predict():
         bio_predator = "Neem Oil"
         crop_rotation = "Beans"
         sustainability_tip = "Use organic compost for better soil fertility"
-        sustainability_score = "80%"
+        sustainability_score = "80"
         sustainability_level = "🟢 Excellent"
         crop_image = "barley.jpg"
 
@@ -144,7 +157,7 @@ def predict():
         bio_predator = "Trichoderma"
         crop_rotation = "Rice"
         sustainability_tip = "Maintain good drainage during cultivation"
-        sustainability_score = "76%"
+        sustainability_score = "76"
         sustainability_level = "🟡 Moderate"
         crop_image = "jute.jpg"
 
@@ -153,7 +166,7 @@ def predict():
         bio_predator = "Neem Seed Kernel Extract"
         crop_rotation = "Wheat"
         sustainability_tip = "Pulses naturally improve soil nitrogen"
-        sustainability_score = "92%"
+        sustainability_score = "92"
         sustainability_level = "🟢 Excellent"
         crop_image = "pulses.jpg"
 
@@ -162,7 +175,7 @@ def predict():
         bio_predator = "Neem Oil Trap"
         crop_rotation = "Banana"
         sustainability_tip = "Use organic mulching to retain soil moisture"
-        sustainability_score = "81%"
+        sustainability_score = "81"
         sustainability_level = "🟢 Excellent"
         crop_image = "coconut.jpg"
 
@@ -174,6 +187,8 @@ def predict():
     session['crop_rotation'] = crop_rotation
     session['sustainability_tip'] = sustainability_tip
     session['sustainability_score'] = sustainability_score
+
+    sustainability_score = int(str(sustainability_score).replace("%", ""))
 
     # Send result to HTML page
     return render_template(  
