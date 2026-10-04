@@ -164,7 +164,7 @@
     <div class="container">
 
         <h1 id="main-heading">AI-Based Sustainable Crop Recommendation System</h1>
-        <h3 class="accuracy">Model Accuracy : 87.5%</h3>
+        
         
       <form action="/predict" method="post">
 
@@ -269,71 +269,90 @@
     
     <script>
     const translations = {
-      en: {
-        heading: "AI-Based Sustainable Crop Recommendation System",
-        predict: "Predict Crop",
-        n: "Nitrogen (N)",
-        p: "Phosphorus (P)",
-        k: "Potassium (K)",
-        temp: "Temperature",
-        humidity: "Humidity",
-        ph: "pH",
-        rainfall: "Rainfall",
-        city: "City"
-      },
-
-      te: {
-        heading: "ఏఐ ఆధారిత సుస్థిర పంట సిఫార్సు వ్యవస్థ",
-        predict: "పంట అంచనా",
-        n: "నత్రజని (N)",
-        p: "ఫాస్ఫరస్ (P)",
-        k: "పొటాషియం (K)",
-        temp: "ఉష్ణోగ్రత",
-        humidity: "ఆర్ద్రత",
-        ph: "పీహెచ్",
-        rainfall: "వర్షపాతం",
-        city: "నగరం"
-      },
-
-      hi: {
-        heading: "एआई आधारित सतत फसल अनुशंसा प्रणाली",
-        predict: "फसल भविष्यवाणी",
-        n: "नाइट्रोजन (N)",
-        p: "फॉस्फोरस (P)",
-        k: "पोटैशियम (K)",
-        temp: "तापमान", 
-        humidity: "नमी",
-        ph: "पीएच",
-        rainfall: "वर्षा",
-        city: "शहर"
-      }
+        en: {
+            heading: "AI-Based Sustainable Crop Recommendation System",
+            predict: "Predict Crop",
+            n: "Nitrogen (N)",
+            p: "Phosphorus (P)",
+            k: "Potassium (K)",
+            temp: "Temperature",
+            humidity: "Humidity",
+            ph: "pH",
+            rainfall: "Rainfall",
+            city: "City"
+        },
+        te: {
+            heading: "ఏఐ ఆధారిత సుస్థిర పంట సిఫార్సు వ్యవస్థ",
+            predict: "పంట అంచనా",
+            n: "నత్రజని (N)",
+            p: "ఫాస్ఫరస్ (P)",
+            k: "పొటాషియం (K)",
+            temp: "ఉష్ణోగ్రత",
+            humidity: "ఆర్ద్రత",
+            ph: "పీహెచ్",
+            rainfall: "వర్షపాతం",
+            city: "నగరం"
+        },
+        hi: {
+            heading: "एआई आधारित सतत फसल अनुशंसा प्रणाली",
+            predict: "फसल भविष्यवाणी",
+            n: "नाइट्रोजन (N)",
+            p: "फॉस्फोरस (P)",
+            k: "पोटैशियम (K)",
+            temp: "तापमान",
+            humidity: "नमी",
+            ph: "पीएच",
+            rainfall: "वर्षा",
+            city: "शहर"
+        }
     };
+    const languageSelector = document.getElementById("language-selector");
+    function applyLanguage(lang) {
+        languageSelector.value = lang;
 
-    document.getElementById("language-selector").addEventListener("change", function () {
-
-        const lang = this.value;
-        localStorage.setItem("selectedLanguage", lang);
-        document.getElementById("main-heading").innerText =
+    document.getElementById("main-heading").innerText =
         translations[lang].heading;
-        document.getElementById("predict-btn").innerText =
+    document.getElementById("predict-btn").innerText =
         translations[lang].predict;
-        document.getElementById("label-n").innerText =
+    document.getElementById("label-n").innerText =
         translations[lang].n;
-        document.getElementById("label-p").innerText =
+
+    document.getElementById("label-p").innerText =
         translations[lang].p;
-        document.getElementById("label-k").innerText =
+
+    document.getElementById("label-k").innerText =
         translations[lang].k;
-        document.getElementById("label-temp").innerText =
+
+    document.getElementById("label-temp").innerText =
         translations[lang].temp;
-        document.getElementById("label-humidity").innerText =
+
+    document.getElementById("label-humidity").innerText =
         translations[lang].humidity;
-        document.getElementById("label-ph").innerText =
+
+    document.getElementById("label-ph").innerText =
         translations[lang].ph;
-        document.getElementById("label-rainfall").innerText =
+
+    document.getElementById("label-rainfall").innerText =
         translations[lang].rainfall;
-        document.getElementById("label-city").innerText =
+
+    document.getElementById("label-city").innerText =
         translations[lang].city;
+    }
+
+    languageSelector.addEventListener("change", function () {
+        const lang = this.value;
+
+    localStorage.setItem("selectedLanguage", lang);
+
+    applyLanguage(lang);
     });
+
+    window.onload = function () {
+        const savedLanguage =
+    localStorage.getItem("selectedLanguage") || "en";
+
+    applyLanguage(savedLanguage);
+    };
     </script>
 </body>
 </html>
